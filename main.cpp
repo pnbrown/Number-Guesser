@@ -74,7 +74,7 @@ public:
             return false;
         }
 
-        std::cout << "You have guessed " << currentGuess << std::endl;
+        std::cout << "You have guessed " << currentGuess << ".\n";
         guesses.push_back(currentGuess);
         return true;
     }
@@ -83,7 +83,7 @@ public:
     {
         if (guess == actual)
         {
-            whichWay.push_back("Just Right");
+            whichWay.push_back("just right.");
             std::cout << "Congratulations! You've found the correct number in " << guessTotal << " guesses!\n";
         }
 
@@ -97,7 +97,7 @@ public:
 
             else if (guess > actual)
             {
-                whichWay.push_back("Too High");
+                whichWay.push_back("too high.");
                 std::cout << "You've guessed too high! Please guess again. (But lower than your last guess) \n";
                 std::cout << "You have " << maxGuesses - guessTotal << " guesses remaining.\n" << std::endl;
                 ++guessTotal;
@@ -106,7 +106,7 @@ public:
             }
             else if (guess < actual)
             {
-                whichWay.push_back("Too Low");
+                whichWay.push_back("too low.");
                 std::cout << "You've guessed too low! Please guess again. (But higher than your last guess)\n";
                 std::cout << "You have " << maxGuesses - guessTotal << " guesses remaining.\n" << std::endl;
                 ++guessTotal;
@@ -118,10 +118,11 @@ public:
 
     void outputGuesses()
     {
-        std::cout << "The numbers you guessed are below:" << std::endl;
+        std::cout << "\nThe numbers you guessed are below:" << std::endl;
         for (int x = 0; x < guesses.size(); x++)
         {
-            std::cout << guesses[x] << " ";
+            std::cout << "You guessed ";
+            std::cout << guesses[x] << " which was ";
             std::cout << whichWay[x] << std::endl;
 
         }

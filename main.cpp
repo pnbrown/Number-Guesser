@@ -63,52 +63,61 @@ public:
         }
     }
 
-    void guessNumber()
+    bool guessNumber()
     {
-            std::cout << "Which number would you like to guess? Please guess any number from 1 to 100. \n";
-            std::cin >> currentGuess;
+        currentGuess = 0;
+        std::cout << "Which number would you like to guess? Please guess any number from 1 to 100. \n";
+        std::cin >> currentGuess;
 
-            while (currentGuess < 1 || currentGuess > 100)
-            {
-                std::cout << "You have entered an invalid number. Please guess again. \n";
-                guessNumber();
-            }
+        if (currentGuess < 1 || currentGuess > 100)
+        {
+            std::cout << "You have entered an invalid number. Please guess again. \n";
+            return false;
+        }
 
-            std::cout << "You have guessed " << currentGuess << std::endl;
-            guesses.push_back(currentGuess);
+        std::cout << "You have guessed " << currentGuess << std::endl;
+        guesses.push_back(currentGuess);
+        return true;
     }
 
-    void highLowCheck(int currentGuess, int actual, int guessTotal, int maxGuesses)
+    void highLowCheck(int guess, int actual, int guessTotal, int maxGuesses)
     {
-        if (currentGuess == actual)
+        if (guess == actual)
         {
             std::cout << "Congratulations! You've found the correct number in " << guessTotal << " guesses!";
         }
 
         else
         {
-            if (currentGuess != actual && guessTotal == maxGuesses)
+            if (guess != actual && guessTotal == maxGuesses)
             {
                 std::cout << "Unfortunately, you've guessed incorrectly and you've run out of guesses. The actual number was " << actual << ".\n";
                 std::cout << "Better luck next time.\n";
             }
 
-            else if (currentGuess > actual)
+            else if (guess > actual)
             {
                 std::cout << "You've guessed too high! Please try again. Guess any number from 1 - 100. (But lower than your last one) \n";
                 ++guessTotal;
-                guessNumber();
-                std::cout << actual << std::endl;
+                while(!guessNumber());
                 highLowCheck(currentGuess, actual, guessTotal, maxGuesses);
             }
-            else if (currentGuess < actual)
+            else if (guess < actual)
             {
                 std::cout << "You've guessed too low! Please try again. Guess any number from 1 - 100. (But higher than your last one) \n";
                 ++guessTotal;
-                guessNumber();
-                std::cout << actual << std::endl;
+                while(!guessNumber());
                 highLowCheck(currentGuess, actual, guessTotal, maxGuesses);
             }
+        }
+    }
+
+    void outputGuesses()
+    {
+        std::cout << "The numbers you guessed are below." << std::endl;
+        for (int x = 0; x < guesses.size(); x++)
+        {
+            std::cout << guesses[x] << std::endl;
         }
     }
 };
@@ -122,14 +131,14 @@ int main() {
 
     while(one.difficulty != 1 && one.difficulty != 2 && one.difficulty !=3)
     {
-        //std::cin.clear()
         std::cout << "You have entered an invalid response. Please try again. Enter 1 for Easy, 2 for Medium, 3 for Hard. \n";
         std::cin >> one.difficulty;
     }
     one.setDifficulty(one.difficulty);
     one.setActual();
-    one.guessNumber();
+    while(!one.guessNumber());
     one.highLowCheck(one.currentGuess, one.actual, 1, one.maxGuesses);
+    one.outputGuesses();
 
     return 0;
 }

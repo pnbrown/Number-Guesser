@@ -98,7 +98,8 @@ public:
             else if (guess > actual)
             {
                 whichWay.push_back("Too High");
-                std::cout << "You've guessed too high! Please try again. Guess any number from 1 - 100. (But lower than your last one) \n";
+                std::cout << "You've guessed too high! Please guess again. (But lower than your last guess) \n";
+                std::cout << "You have " << maxGuesses - guessTotal << " guesses remaining.\n" << std::endl;
                 ++guessTotal;
                 while(!guessNumber());
                 highLowCheck(currentGuess, actual, guessTotal, maxGuesses);
@@ -106,7 +107,8 @@ public:
             else if (guess < actual)
             {
                 whichWay.push_back("Too Low");
-                std::cout << "You've guessed too low! Please try again. Guess any number from 1 - 100. (But higher than your last one) \n";
+                std::cout << "You've guessed too low! Please guess again. (But higher than your last guess)\n";
+                std::cout << "You have " << maxGuesses - guessTotal << " guesses remaining.\n" << std::endl;
                 ++guessTotal;
                 while(!guessNumber());
                 highLowCheck(currentGuess, actual, guessTotal, maxGuesses);

@@ -1,12 +1,11 @@
 #include <iostream> //cin, cout, endl
 #include <vector>   //vector
-#include <ctime>    //time
-#include <cstdlib>  //srand
 
 class Number
 {
 public:
     std::vector<int> guesses;
+    std::vector<std::string> whichWay;
     int difficulty;
     int currentGuess;
     int maxGuesses;
@@ -15,7 +14,7 @@ public:
 
     int setActual()
     {
-        srand (time(NULL));
+        srand( static_cast<unsigned int>(time(NULL)));
         actual = rand() % 100;
 
         if (actual == 0)
@@ -84,7 +83,8 @@ public:
     {
         if (guess == actual)
         {
-            std::cout << "Congratulations! You've found the correct number in " << guessTotal << " guesses!";
+            whichWay.push_back("Just Right");
+            std::cout << "Congratulations! You've found the correct number in " << guessTotal << " guesses!\n";
         }
 
         else
@@ -97,6 +97,7 @@ public:
 
             else if (guess > actual)
             {
+                whichWay.push_back("Too High");
                 std::cout << "You've guessed too high! Please try again. Guess any number from 1 - 100. (But lower than your last one) \n";
                 ++guessTotal;
                 while(!guessNumber());
@@ -104,6 +105,7 @@ public:
             }
             else if (guess < actual)
             {
+                whichWay.push_back("Too Low");
                 std::cout << "You've guessed too low! Please try again. Guess any number from 1 - 100. (But higher than your last one) \n";
                 ++guessTotal;
                 while(!guessNumber());
@@ -114,10 +116,12 @@ public:
 
     void outputGuesses()
     {
-        std::cout << "The numbers you guessed are below." << std::endl;
+        std::cout << "The numbers you guessed are below:" << std::endl;
         for (int x = 0; x < guesses.size(); x++)
         {
-            std::cout << guesses[x] << std::endl;
+            std::cout << guesses[x] << " ";
+            std::cout << whichWay[x] << std::endl;
+
         }
     }
 };

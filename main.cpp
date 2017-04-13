@@ -6,13 +6,25 @@
 class Number
 {
 public:
-    int randomNumber;
     std::vector<int> guesses;
     int difficulty;
     int currentGuess;
     int maxGuesses;
+    int actual;
 
-    //srand (time(NULL));
+
+    int setActual()
+    {
+        srand (time(NULL));
+        actual = rand() % 100;
+
+        if (actual == 0)
+        {
+            ++actual;
+        }
+
+        std::cout << actual << std::endl;
+    }
 
     //sets the number of guesses the user will have to get the number
     void setDifficulty(int setDifficulty)
@@ -25,21 +37,21 @@ public:
             case 1:
             {
                 maxGuesses = 7;
-                std::cout << "You've chosen Easy mode. That means you will have " << maxGuesses << " guesses. Good Luck!";
+                std::cout << "You've chosen Easy mode. That means you will have " << maxGuesses << " guesses. Good Luck!\n";
                 break;
             }
             //Medium
             case 2:
             {
                 maxGuesses = 5;
-                std::cout << "You've chosen Medium mode. That means you will have " << maxGuesses << " guesses. Good Luck!";
+                std::cout << "You've chosen Medium mode. That means you will have " << maxGuesses << " guesses. Good Luck!\n";
                 break;
             }
             //Hard
             case 3:
             {
                 maxGuesses = 3;
-                std::cout << "You've chosen Hard mode. That means you will have " << maxGuesses << " guesses. Good Luck!";
+                std::cout << "You've chosen Hard mode. That means you will have " << maxGuesses << " guesses. Good Luck!\n";
                 break;
             }
             //Cobra Bubbles
@@ -59,6 +71,7 @@ public:
             while (currentGuess < 1 || currentGuess > 100)
             {
                 std::cout << "You have entered an invalid number. Please guess again. \n";
+                guessNumber();
             }
 
             std::cout << "You have guessed " << currentGuess << std::endl;
@@ -82,15 +95,19 @@ public:
 
             else if (currentGuess > actual)
             {
-                std::cout << "You've guessed too high! Please try again. Guess any number from 1 - 100. (But higher than your last one) \n";
+                std::cout << "You've guessed too high! Please try again. Guess any number from 1 - 100. (But lower than your last one) \n";
                 ++guessTotal;
                 guessNumber();
-
+                std::cout << actual << std::endl;
+                highLowCheck(currentGuess, actual, guessTotal, maxGuesses);
             }
             else if (currentGuess < actual)
             {
-                std::cout << "You've guessed too low! Please try again. Guess any number from 1 - 100. (But lower than your last one) \n";
-
+                std::cout << "You've guessed too low! Please try again. Guess any number from 1 - 100. (But higher than your last one) \n";
+                ++guessTotal;
+                guessNumber();
+                std::cout << actual << std::endl;
+                highLowCheck(currentGuess, actual, guessTotal, maxGuesses);
             }
         }
     }
@@ -102,18 +119,17 @@ int main() {
 
     std::cout << "Welcome to the Number Guesser. Please select a difficulty. Enter 1 for Easy, 2 for Medium, 3 for Hard. \n";
     std::cin >> one.difficulty;
-    //std::cout << "You've chosen " << one.difficulty << ".\n";
 
     while(one.difficulty != 1 && one.difficulty != 2 && one.difficulty !=3)
     {
         //std::cin.clear()
         std::cout << "You have entered an invalid response. Please try again. Enter 1 for Easy, 2 for Medium, 3 for Hard. \n";
         std::cin >> one.difficulty;
-        //std::cout << "You've chosen " << one.difficulty << ".\n";
     }
     one.setDifficulty(one.difficulty);
-
-
+    one.setActual();
+    one.guessNumber();
+    one.highLowCheck(one.currentGuess, one.actual, 1, one.maxGuesses);
 
     return 0;
 }

@@ -12,7 +12,7 @@ public:
     int actual;
 
 
-    int setActual()
+    void setActual()
     {
         srand( static_cast<unsigned int>(time(NULL)));
         actual = rand() % 100;

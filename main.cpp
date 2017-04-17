@@ -1,7 +1,7 @@
 #include <iostream> //cin, cout, endl
 #include <vector>   //vector
 
-class Number
+class UserGuess
 {
 public:
     std::vector<int> guesses;
@@ -36,21 +36,21 @@ public:
             case 1:
             {
                 maxGuesses = 7;
-                std::cout << "You've chosen Easy mode. That means you will have " << maxGuesses << " guesses. Good Luck!\n";
+                std::cout << "You've chosen Easy mode. This means you will have " << maxGuesses << " guesses. Good Luck!\n";
                 break;
             }
             //Medium
             case 2:
             {
                 maxGuesses = 5;
-                std::cout << "You've chosen Medium mode. That means you will have " << maxGuesses << " guesses. Good Luck!\n";
+                std::cout << "You've chosen Medium mode. This means you will have " << maxGuesses << " guesses. Good Luck!\n";
                 break;
             }
             //Hard
             case 3:
             {
                 maxGuesses = 3;
-                std::cout << "You've chosen Hard mode. That means you will have " << maxGuesses << " guesses. Good Luck!\n";
+                std::cout << "You've chosen Hard mode. This means you will have " << maxGuesses << " guesses. Good Luck!\n";
                 break;
             }
             //Cobra Bubbles
@@ -91,7 +91,7 @@ public:
         {
             if (guess != actual && guessTotal == maxGuesses)
             {
-                std::cout << "Unfortunately, you've guessed incorrectly and you've run out of guesses. The actual number was " << actual << ".\n";
+                std::cout << "Unfortunately, you've guessed incorrectly and you've run out of guesses.\n\n The actual number was " << actual << ".\n";
                 if (guess < actual)
                 {
                     std::cout << "Your final guess was too low.\n";
@@ -138,11 +138,62 @@ public:
 
         }
     }
+
+};
+
+class ComputerGuess
+{
+    int commonNumbers[];
+    int guess;
+    int difficulty;
+    int maxGuesses;
+
+    //sets the number of guesses the user will have to get the number
+    void setDifficulty(int setDifficulty)
+    {
+        difficulty = setDifficulty;
+
+        switch (difficulty)
+        {
+            //Easy
+            case 1:
+            {
+                maxGuesses = 7;
+                std::cout << "You've chosen Easy mode. This means the computer will have " << maxGuesses << " guesses.\n";
+                break;
+            }
+            //Medium
+            case 2:
+            {
+                maxGuesses = 5;
+                std::cout << "You've chosen Medium mode. This means the computer will have " << maxGuesses << " guesses.!\n";
+                break;
+            }
+            //Hard
+            case 3:
+            {
+                maxGuesses = 3;
+                std::cout << "You've chosen Hard mode. This means the computer will have " << maxGuesses << " guesses.\n";
+                break;
+            }
+            //Cobra Bubbles
+            default:
+            {
+                std::cout << "Something has indeed gone very wrong... \n";
+                break;
+            }
+        }
+    }
+
+    bool guesser(int low, int high, int guessTotal)
+    {
+
+    }
 };
 
 
 int main() {
-    Number one;
+    UserGuess one;
 
     std::cout << "Welcome to the Number Guesser. Please select a difficulty. Enter 1 for Easy, 2 for Medium, 3 for Hard. \n";
     std::cin >> one.difficulty;

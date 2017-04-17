@@ -22,7 +22,7 @@ public:
             ++actual;
         }
 
-        std::cout << actual << std::endl;
+        //std::cout << actual << std::endl;
     }
 
     //sets the number of guesses the user will have to get the number
@@ -92,6 +92,17 @@ public:
             if (guess != actual && guessTotal == maxGuesses)
             {
                 std::cout << "Unfortunately, you've guessed incorrectly and you've run out of guesses. The actual number was " << actual << ".\n";
+                if (guess < actual)
+                {
+                    std::cout << "Your final guess was too low.\n";
+                    whichWay.push_back("too low.");
+                }
+                else if (guess > actual)
+                {
+                    std::cout << "Your final guess was too high.\n";
+                    whichWay.push_back("too high.");
+                }
+
                 std::cout << "Better luck next time.\n";
             }
 

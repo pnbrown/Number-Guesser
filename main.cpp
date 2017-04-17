@@ -143,7 +143,7 @@ public:
 
 class ComputerGuess
 {
-    int commonNumbers[];
+    int commonNumbers[] = {};
     int guess;
     int difficulty;
     int maxGuesses;

@@ -1,5 +1,6 @@
 #include <iostream> //cin, cout, endl
 #include <vector>   //vector
+#include <fstream>  //
 
 class UserGuess
 {
@@ -143,7 +144,6 @@ public:
 
 class ComputerGuess
 {
-    int commonNumbers[] = {};
     int guess;
     int difficulty;
     int maxGuesses;
@@ -185,7 +185,7 @@ class ComputerGuess
         }
     }
 
-    bool guesser(int low, int high, int guessTotal)
+    void guesser(int low, int high, int guessTotal)
     {
 
     }

@@ -1,6 +1,7 @@
 #include <iostream> //cin, cout, endl
 #include <vector>   //vector
-#include <fstream>  //
+#include <fstream>  //ifstream, ofstream
+#include <string>   //string
 
 class UserGuess
 {
@@ -144,9 +145,37 @@ public:
 
 class ComputerGuess
 {
+public:
     int guess;
     int difficulty;
     int maxGuesses;
+    int possibilities[100] = {0};
+
+    void learn()
+    {
+        int total = 0;
+        int addOne = 0;
+        double index;
+        std::ifstream myfile;
+        myfile.open("results.csv");
+
+        while(myfile >> index)
+        {
+            std::cout << index << std::endl;
+            addOne = index - 1;
+            possibilities[addOne] += 1;
+            ++total;
+        }
+
+        std::cout << total;
+
+        for (int x = 0; x < 100; ++x)
+        {
+            std::cout << possibilities[x] << std::endl;
+        }
+
+
+    }
 
     //sets the number of guesses the user will have to get the number
     void setDifficulty(int setDifficulty)
@@ -193,7 +222,7 @@ class ComputerGuess
 
 
 int main() {
-    UserGuess one;
+    /*UserGuess one;
 
     std::cout << "Welcome to the Number Guesser. Please select a difficulty. Enter 1 for Easy, 2 for Medium, 3 for Hard. \n";
     std::cin >> one.difficulty;
@@ -207,7 +236,10 @@ int main() {
     one.setActual();
     while(!one.guessNumber());
     one.highLowCheck(one.currentGuess, one.actual, 1, one.maxGuesses);
-    one.outputGuesses();
+    one.outputGuesses();*/
+
+    ComputerGuess one;
+    one.learn();
 
     return 0;
 }

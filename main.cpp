@@ -147,13 +147,16 @@ class ComputerGuess
 {
 public:
     int guess;
+    int guessTotal;
     int difficulty;
     int maxGuesses;
     int possibilities[100] = {0};
+    int total = 0;
+    int left = 0;
+    int right = 100;
 
     void learn()
     {
-        int total = 0;
         int addOne = 0;
         double index;
         std::ifstream myfile;
@@ -161,18 +164,21 @@ public:
 
         while(myfile >> index)
         {
-            std::cout << index << std::endl;
+            //std::cout << index << std::endl;
             addOne = index - 1;
-            possibilities[addOne] += 1;
+            ++possibilities[addOne];
             ++total;
         }
 
-        std::cout << total;
+        //For testing
+        /*
+        std::cout << total << std::endl;
 
         for (int x = 0; x < 100; ++x)
         {
             std::cout << possibilities[x] << std::endl;
         }
+        */
 
 
     }
@@ -214,10 +220,71 @@ public:
         }
     }
 
-    void guesser(int low, int high, int guessTotal)
+    void setGuess(int total, int low, int high)
     {
-
+        int x = 0;
+        while (x  < total/2)
+        {
+            x = x + possibilities[low];
+            ++low;
+        }
+        guess = low + 1;
     }
+
+    void guesser(int guessTotal)
+    {
+        bool validAnswer = false;
+        char answer;
+        while(!validAnswer)
+        {
+            std::cout << "Is your number " << guess << "? If yes, enter Y, if no, enter N." << std::endl;
+            std::cin >> answer;
+
+            if (answer == 'y' || 'Y' || 'n' || 'N')
+            {
+                validAnswer = true;
+            }
+            else
+            {
+                std::cout << "You have entered an invalid response. Please try again. " << std::endl;
+                validAnswer = false;
+            }
+        }
+
+        if (answer == 'y' || 'Y')
+        {
+            std::cout << "Thank you for playing!";
+        }
+
+        else if (answer == 'n' || 'N')
+        {
+            validAnswer = false;
+            std::cout << "Was my guess too high or too low? Enter h for high or l for low. " << std::endl;
+            std::cin >> answer;
+            while(!validAnswer)
+            {
+                if (answer = 'h' || 'H' || "l" || 'L')
+                {
+                    validAnswer = true;
+                }
+                else
+                {
+                    std::cout << "You have entered an invalid response. Please try again" << std::endl;
+                }
+            }
+        }
+
+        if (answer == 'h' || 'H')
+        {
+            right = guess - 1;
+        }
+        else if (answer == 'l' || 'L')
+        {
+            left  = guess - 1;
+        }
+    }
+
+
 };
 
 
@@ -240,6 +307,7 @@ int main() {
 
     ComputerGuess one;
     one.learn();
-
+    one.setGuess(one.total, one.left, one.right);
+    one.guesser(one.guessTotal);
     return 0;
 }

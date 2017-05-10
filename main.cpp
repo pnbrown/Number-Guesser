@@ -150,7 +150,7 @@ public:
     int guessTotal;
     int difficulty;
     int maxGuesses;
-    int possibilities[100] = {0};
+    int possibilities[100] = {1};
     int total = 0;
     int left = 0;
     int right = 100;
@@ -274,13 +274,19 @@ public:
             }
         }
 
-        if (answer = 'h' || 'H')
+        if (answer == 'h' || answer == 'H')
         {
             right = guess - 1;
+            total = total/2;
+            setGuess(total, left, right);
+            guesser(guessTotal);
         }
-        else if (answer == 'l' || 'L')
+        else if (answer == 'l' || answer == 'L')
         {
             left  = guess - 1;
+            total = total/2;
+            setGuess(total, left, right);
+            guesser(guessTotal);
         }
     }
 

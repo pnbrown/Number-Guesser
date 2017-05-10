@@ -240,7 +240,7 @@ public:
             std::cout << "Is your number " << guess << "? If yes, enter Y, if no, enter N." << std::endl;
             std::cin >> answer;
 
-            if (answer == 'y' || 'Y' || 'n' || 'N')
+            if ((answer == 'y' || answer == 'Y' || answer == 'n' || answer == 'N'))
             {
                 validAnswer = true;
             }
@@ -251,19 +251,19 @@ public:
             }
         }
 
-        if (answer == 'y' || 'Y')
+        if ((answer == 'y' || answer == 'Y'))
         {
             std::cout << "Thank you for playing!";
         }
 
-        else if (answer == 'n' || 'N')
+        else if (answer == 'n' || answer == 'N')
         {
             validAnswer = false;
             std::cout << "Was my guess too high or too low? Enter h for high or l for low. " << std::endl;
             std::cin >> answer;
             while(!validAnswer)
             {
-                if (answer = 'h' || 'H' || "l" || 'L')
+                if ((answer == 'h' || answer == 'H' || answer == 'l' || answer == 'L'))
                 {
                     validAnswer = true;
                 }
@@ -274,7 +274,7 @@ public:
             }
         }
 
-        if (answer == 'h' || 'H')
+        if (answer = 'h' || 'H')
         {
             right = guess - 1;
         }

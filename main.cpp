@@ -150,7 +150,7 @@ public:
     int guessTotal;
     int difficulty;
     int maxGuesses;
-    int possibilities[100] = {1};
+    int possibilities[100] = {};
     int total = 0;
     int left = 0;
     int right = 100;
@@ -170,6 +170,14 @@ public:
             ++total;
         }
 
+        int amount = 0;
+        for (int x = 0; x < 100; ++x)
+        {
+           amount = amount + possibilities[x];
+        }
+
+        std::cout << amount << std::endl;
+
         //For testing
         /*
         std::cout << total << std::endl;
@@ -179,7 +187,7 @@ public:
             std::cout << possibilities[x] << std::endl;
         }
         */
-
+        std::cout << total << std::endl;
 
     }
 
@@ -259,7 +267,7 @@ public:
         else if (answer == 'n' || answer == 'N')
         {
             validAnswer = false;
-            std::cout << "Was my guess too high or too low? Enter h for high or l for low. " << std::endl;
+            std::cout << "Is your number higher or lower? Enter h for higher or l for lower. " << std::endl;
             std::cin >> answer;
             while(!validAnswer)
             {
@@ -274,14 +282,14 @@ public:
             }
         }
 
-        if (answer == 'h' || answer == 'H')
+        if (answer == 'l' || answer == 'L')
         {
             right = guess - 1;
             total = total/2;
             setGuess(total, left, right);
             guesser(guessTotal);
         }
-        else if (answer == 'l' || answer == 'L')
+        else if (answer == 'h' || answer == 'H')
         {
             left  = guess - 1;
             total = total/2;

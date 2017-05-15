@@ -1,7 +1,7 @@
 #include <iostream> //cin, cout, endl
+#include <iomanip>  //setfill, setw
 #include <vector>   //vector
 #include <fstream>  //ifstream, ofstream
-#include <string>   //string
 
 class UserGuess
 {
@@ -93,7 +93,7 @@ public:
         {
             if (guess != actual && guessTotal == maxGuesses)
             {
-                std::cout << "Unfortunately, you've guessed incorrectly and you've run out of guesses.\n\n The actual number was " << actual << ".\n";
+                std::cout << "Unfortunately, you've guessed incorrectly and you've run out of guesses.\n\nThe actual number was " << actual << ".\n";
                 if (guess < actual)
                 {
                     std::cout << "Your final guess was too low.\n";
@@ -137,7 +137,6 @@ public:
             std::cout << "You guessed ";
             std::cout << guesses[x] << " which was ";
             std::cout << whichWay[x] << std::endl;
-
         }
     }
 
@@ -158,7 +157,7 @@ public:
     void learn()
     {
         int addOne = 0;
-        double index;
+        int index;
         std::ifstream myfile;
         myfile.open("results.csv");
 
@@ -176,56 +175,22 @@ public:
            amount = amount + possibilities[x];
         }
 
+
+        /*
+        //For Testing
         std::cout << amount << std::endl;
 
-        //For testing
-        /*
+
         std::cout << total << std::endl;
 
         for (int x = 0; x < 100; ++x)
         {
             std::cout << possibilities[x] << std::endl;
         }
-        */
+
         std::cout << total << std::endl;
+        */
 
-    }
-
-    //sets the number of guesses the user will have to get the number
-    void setDifficulty(int setDifficulty)
-    {
-        difficulty = setDifficulty;
-
-        switch (difficulty)
-        {
-            //Easy
-            case 1:
-            {
-                maxGuesses = 7;
-                std::cout << "You've chosen Easy mode. This means the computer will have " << maxGuesses << " guesses.\n";
-                break;
-            }
-            //Medium
-            case 2:
-            {
-                maxGuesses = 5;
-                std::cout << "You've chosen Medium mode. This means the computer will have " << maxGuesses << " guesses.!\n";
-                break;
-            }
-            //Hard
-            case 3:
-            {
-                maxGuesses = 3;
-                std::cout << "You've chosen Hard mode. This means the computer will have " << maxGuesses << " guesses.\n";
-                break;
-            }
-            //Cobra Bubbles
-            default:
-            {
-                std::cout << "Something has indeed gone very wrong... \n";
-                break;
-            }
-        }
     }
 
     void setGuess(int total, int low, int high)
@@ -261,7 +226,7 @@ public:
 
         if ((answer == 'y' || answer == 'Y'))
         {
-            std::cout << "Thank you for playing!";
+            std::cout << "Thank you for playing!" << std::endl;
         }
 
         else if (answer == 'n' || answer == 'N')
@@ -298,30 +263,96 @@ public:
         }
     }
 
+    void update()
+    {
+        std::cout << "Would you like to help improve our program by entering your number? Please enter y for yes and n for no" << std::endl;
+
+        char update;
+        std::cin >> update;
+
+        if (update == 'n' || update == 'N')
+        {
+            std::cout << "Thank you for playing." << std::endl;
+            return;
+        }
+
+        else
+        {
+            std::cout << "Which number did you choose?" << std::endl;
+            std::ofstream myfile;
+            myfile.open("results.csv", std::ios::app);
+            std::cout << "Please enter your number" << std::endl;
+            int number;
+            std::cin >> number;
+            myfile << std::endl << number;
+        }
+    }
+
 
 };
 
 
 int main() {
-    /*UserGuess one;
-
-    std::cout << "Welcome to the Number Guesser. Please select a difficulty. Enter 1 for Easy, 2 for Medium, 3 for Hard. \n";
-    std::cin >> one.difficulty;
-
-    while(one.difficulty != 1 && one.difficulty != 2 && one.difficulty !=3)
+    bool menuRepeat = true;
+    while (menuRepeat)
     {
-        std::cout << "You have entered an invalid response. Please try again. Enter 1 for Easy, 2 for Medium, 3 for Hard. \n";
-        std::cin >> one.difficulty;
-    }
-    one.setDifficulty(one.difficulty);
-    one.setActual();
-    while(!one.guessNumber());
-    one.highLowCheck(one.currentGuess, one.actual, 1, one.maxGuesses);
-    one.outputGuesses();*/
+        int choice;
 
-    ComputerGuess one;
-    one.learn();
-    one.setGuess(one.total, one.left, one.right);
-    one.guesser(one.guessTotal);
+        std::cout << std::setfill('*') << std::setw(40) << "*" << std::endl;
+        std::cout << std::setfill(' ') << std::setw(39) << std::left << "* Main Menu:" << std::right << "*\n";
+        std::cout << std::setfill(' ') << std::setw(39) << std::left << "* Enter # to run program or Quit" << std::right << "*\n";
+        std::cout << std::setfill(' ') << std::setw(39) << std::left << "* 1) You Guess Computers Number" << std::right << "*\n";
+        std::cout << std::setfill(' ') << std::setw(39) << std::left << "* 2) I Guess Your Number" << std::right << "*\n";
+        std::cout << std::setfill(' ') << std::setw(39) << std::left << "* 3) Quit" << std::right << "*\n";
+        std::cout << std::setfill('*') << std::setw(40) << "*" << std::endl;
+
+        std::cin >> choice;
+
+        switch(choice)
+        {
+            case 1:
+            {
+                UserGuess one;
+
+                std::cout << "Welcome to the Number Guesser. Please select a difficulty. Enter 1 for Easy, 2 for Medium, 3 for Hard. \n";
+                std::cin >> one.difficulty;
+
+                while(one.difficulty != 1 && one.difficulty != 2 && one.difficulty !=3)
+                {
+                    std::cout << "You have entered an invalid response. Please try again. Enter 1 for Easy, 2 for Medium, 3 for Hard. \n";
+                    std::cin >> one.difficulty;
+                }
+                one.setDifficulty(one.difficulty);
+                one.setActual();
+                while(!one.guessNumber());
+                one.highLowCheck(one.currentGuess, one.actual, 1, one.maxGuesses);
+                one.outputGuesses();
+                break;
+            }
+            case 2:
+            {
+                ComputerGuess one;
+                one.learn();
+                one.setGuess(one.total, one.left, one.right);
+                one.guesser(one.guessTotal);
+                one.update();
+                break;
+            }
+            case 3:
+            {
+                std::cout << "Thank you for playing. Goodbye." << std::endl;
+                menuRepeat = false;
+                break;
+
+            }
+            default:
+            {
+                std::cin.clear();
+                std::cin.ignore();
+                std::cout << "You have entered an invalid response. Please try again.";
+            }
+
+        }
+    }
     return 0;
 }

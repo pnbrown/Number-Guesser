@@ -34,28 +34,28 @@ public:
         
         switch (difficulty)
         {
-                //Easy
+            //Easy
             case 1:
             {
                 maxGuesses = 7;
                 std::cout << "You've chosen Easy mode. This means you will have " << maxGuesses << " guesses. Good Luck!\n";
                 break;
             }
-                //Medium
+            //Medium
             case 2:
             {
                 maxGuesses = 5;
                 std::cout << "You've chosen Medium mode. This means you will have " << maxGuesses << " guesses. Good Luck!\n";
                 break;
             }
-                //Hard
+            //Hard
             case 3:
             {
                 maxGuesses = 3;
                 std::cout << "You've chosen Hard mode. This means you will have " << maxGuesses << " guesses. Good Luck!\n";
                 break;
             }
-                //Cobra Bubbles
+            //Cobra Bubbles
             default:
             {
                 std::cout << "Something has indeed gone very wrong... \n";
@@ -64,7 +64,7 @@ public:
         }
     }
     
-    //True or false statement that checks to make sure that the user guesses a number that is between 1 and 100
+    //True or false method that takes the users guess and checks to make sure it a number that is between 1 and 100
     bool guessNumber()
     {
         currentGuess = 0;
@@ -82,7 +82,7 @@ public:
         return true;
     }
     
-    //This method is useful for the computer to eliminate certain numbers and get closer to the number chosen
+    //This method is checks to see if the user's guess is correct
     void highLowCheck(int guess, int actual, int guessTotal, int maxGuesses)
     {
         if (guess == actual)
@@ -93,7 +93,7 @@ public:
         
         else
         {
-            //This is to stop the program once you run out of your guesses or havent chosen the correct number.
+            //This is to stop the program once you run out of your guesses and have not chosen the correct number.
             if (guess != actual && guessTotal == maxGuesses)
             {
                 std::cout << "Unfortunately, you've guessed incorrectly and you've run out of guesses.\n\nThe actual number was " << actual << ".\n";
@@ -135,7 +135,7 @@ public:
         }
     }
     
-    //At the end of your gameplay it will output all the numbers that you guessed.
+    //At the end of your game, the program will output all the numbers that you guessed.
     void outputGuesses()
     {
         std::cout << "\nThe numbers you guessed are below:" << std::endl;
@@ -154,8 +154,6 @@ class ComputerGuess
 public:
     int guess;
     int guessTotal;
-    int difficulty;
-    int maxGuesses;
     int possibilities[100] = {};
     int total = 0;
     int left = 0;

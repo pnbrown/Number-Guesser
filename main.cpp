@@ -231,6 +231,9 @@ public:
         
         if ((answer == 'y' || answer == 'Y'))
         {
+            std::ofstream myfile;
+            myfile.open("results.csv", std::ios::app);
+            myfile << std::endl << guess;
             std::cout << "Thank you for playing!" << std::endl;
         }
         
